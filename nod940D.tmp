@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://250kbsk835go"]
+[gd_scene load_steps=6 format=3 uid="uid://250kbsk835go"]
 
 [ext_resource type="Texture2D" uid="uid://dj2qugsuf0axg" path="res://Sprite-0002.png" id="1_k1gk3"]
 
@@ -6,20 +6,14 @@
 resource_name = "CharacterMoveScript"
 script/source = "extends CharacterBody2D
 
-@onready var HealthContainerContainer = $Camera2D/Control
-@onready var HealthContainer = [\"Random string to make array index line up with health\", $Camera2D/Control/HealthContainer1, $Camera2D/Control/HealthContainer2, $Camera2D/Control/HealthContainer3]
-@export var PlayerHealth = 3
-var HealthContainerNode = null
-var MaxHealth = 10
-
 @export var Speed = 400
 @export var Gravity = 20
 @export var JumpForce = -400
 
-var TreeTriggerCooldown = 3
-var RandomFirstCollision = true
+func _on_ready():
+	var area2D = $'Area2D'
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	
 	var Direction = Input.get_axis(\"Left\", \"Right\")
 	if Direction:
@@ -34,33 +28,9 @@ func _physics_process(_delta):
 		
 	move_and_slide()
 	
-func _on_area_2d_body_entered(_body):
-	if RandomFirstCollision == false:
-			HealthContainerContainer.remove_child(HealthContainer[PlayerHealth])
-			PlayerHealth = PlayerHealth - 1
-			HealthContainer.pop_back()
-			if PlayerHealth <= 0:
-				print(\"Player Has Died!!\")
-				
-	else: RandomFirstCollision = false
-
-func _on_health_gain_body_entered(_body):
-	PlayerHealth = PlayerHealth + 1
-	HealthContainerNode = ColorRect.new()
-	HealthContainerContainer.add_child(HealthContainerNode, true)
-	
-	# When a new child is added to the HealthContainerContainer (control) it triggers this function
-func _on_control_child_entered_tree(node):
-	if TreeTriggerCooldown <= 0:
-		node.name = \"HealthContainer\" + str(PlayerHealth)
-		node.color = Color(\"Red\")
-		HealthContainer.append(node)
-	else:
-		TreeTriggerCooldown = TreeTriggerCooldown - 1
+func EnemyCollision(area):
+	print(\"Player Collided with Enemy\")
 "
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbgqg"]
-size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7ahqi"]
 size = Vector2(40, 39)
@@ -71,17 +41,12 @@ size = Vector2(578, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eaphj"]
 size = Vector2(40, 40)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n385w"]
-size = Vector2(38, 38)
-
 [node name="Node2D" type="Node2D"]
 
-[node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
+[node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(5, 7)
 script = SubResource("GDScript_ckyav")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("RectangleShape2D_cbgqg")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_k1gk3")
@@ -92,41 +57,54 @@ position_smoothing_speed = 2.0
 
 [node name="Control" type="Control" parent="Player/Camera2D"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -384.0
-offset_top = -216.0
-offset_right = -341.0
-offset_bottom = -173.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="HealthContainer1" type="ColorRect" parent="Player/Camera2D/Control"]
+[node name="HealthContainer" type="ColorRect" parent="Player/Camera2D/Control"]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 43.0
-offset_bottom = 43.0
+offset_left = -380.0
+offset_top = -213.0
+offset_right = -340.0
+offset_bottom = -173.0
 color = Color(0.811063, 0, 0.142269, 1)
 
 [node name="HealthContainer2" type="ColorRect" parent="Player/Camera2D/Control"]
 layout_mode = 0
-offset_left = 49.0
-offset_top = 3.0
-offset_right = 89.0
-offset_bottom = 43.0
+offset_left = -336.0
+offset_top = -213.0
+offset_right = -296.0
+offset_bottom = -173.0
 color = Color(0.811063, 0, 0.142269, 1)
 
 [node name="HealthContainer3" type="ColorRect" parent="Player/Camera2D/Control"]
 layout_mode = 1
-offset_left = 95.0
-offset_top = 3.0
-offset_right = 135.0
-offset_bottom = 43.0
+anchors_preset = -1
+anchor_left = -0.175
+anchor_top = 0.05
+anchor_right = -0.175
+anchor_bottom = 0.05
+offset_left = -285.0
+offset_top = -215.0
+offset_right = -245.0
+offset_bottom = -175.0
+color = Color(0.811063, 0, 0.142269, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthContainer4" type="ColorRect" parent="Player/Camera2D/Control"]
+layout_mode = 0
+offset_left = -247.0
+offset_top = -213.0
+offset_right = -207.0
+offset_bottom = -173.0
+color = Color(0.811063, 0, 0.142269, 1)
+
+[node name="HealthContainer5" type="ColorRect" parent="Player/Camera2D/Control"]
+layout_mode = 0
+offset_left = -203.0
+offset_top = -213.0
+offset_right = -163.0
+offset_bottom = -173.0
 color = Color(0.811063, 0, 0.142269, 1)
 
 [node name="Area2D" type="Area2D" parent="Player"]
@@ -195,8 +173,9 @@ offset_top = -10.0
 offset_right = 289.0
 offset_bottom = 11.0
 
-[node name="Enemy" type="Area2D" parent="."]
+[node name="Enemy" type="CharacterBody2D" parent="."]
 position = Vector2(119, 102)
+collision_layer = 2
 metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Enemy"]
@@ -204,23 +183,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0, 1, 0, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+[node name="Area2D" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
 position = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_eaphj")
-
-[node name="HealthGain" type="Area2D" parent="."]
-position = Vector2(-228, 101)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthGain"]
-position = Vector2(20, 20)
-shape = SubResource("RectangleShape2D_n385w")
-
-[node name="ColorRect" type="ColorRect" parent="HealthGain"]
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(1, 0.0705882, 0.905882, 1)
-
-[connection signal="child_entered_tree" from="Player/Camera2D/Control" to="Player" method="_on_control_child_entered_tree"]
-[connection signal="body_entered" from="Enemy" to="Player" method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="HealthGain" to="Player" method="_on_health_gain_body_entered"]

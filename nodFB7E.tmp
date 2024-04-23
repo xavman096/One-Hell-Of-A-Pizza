@@ -8,18 +8,21 @@ script/source = "extends CharacterBody2D
 
 @onready var HealthContainerContainer = $Camera2D/Control
 @onready var HealthContainer = [\"Random string to make array index line up with health\", $Camera2D/Control/HealthContainer1, $Camera2D/Control/HealthContainer2, $Camera2D/Control/HealthContainer3]
+@onready var TempHealthContainer = $Camera2D/Control/ColorRect
 @export var PlayerHealth = 3
-var HealthContainerNode = null
 var MaxHealth = 10
+var HealthContainerNode = null
+
 
 @export var Speed = 400
 @export var Gravity = 20
 @export var JumpForce = -400
 
-var TreeTriggerCooldown = 3
 var RandomFirstCollision = true
 
-func _physics_process(_delta):
+var HealthTimer = 20
+
+func _physics_process(delta):
 	
 	var Direction = Input.get_axis(\"Left\", \"Right\")
 	if Direction:
@@ -34,7 +37,7 @@ func _physics_process(_delta):
 		
 	move_and_slide()
 	
-func _on_area_2d_body_entered(_body):
+func _on_area_2d_body_entered(body):
 	if RandomFirstCollision == false:
 			HealthContainerContainer.remove_child(HealthContainer[PlayerHealth])
 			PlayerHealth = PlayerHealth - 1
@@ -44,19 +47,17 @@ func _on_area_2d_body_entered(_body):
 				
 	else: RandomFirstCollision = false
 
-func _on_health_gain_body_entered(_body):
+func _on_health_gain_body_entered(body):
 	PlayerHealth = PlayerHealth + 1
 	HealthContainerNode = ColorRect.new()
 	HealthContainerContainer.add_child(HealthContainerNode, true)
 	
-	# When a new child is added to the HealthContainerContainer (control) it triggers this function
-func _on_control_child_entered_tree(node):
-	if TreeTriggerCooldown <= 0:
-		node.name = \"HealthContainer\" + str(PlayerHealth)
-		node.color = Color(\"Red\")
-		HealthContainer.append(node)
+	if HealthTimer <= 0:
+		TempHealthContainer.name = \"HealthContainer\" + str(PlayerHealth)
 	else:
-		TreeTriggerCooldown = TreeTriggerCooldown - 1
+		HealthTimer = HealthTimer - 1
+	print(HealthTimer)
+	print(PlayerHealth)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cbgqg"]
@@ -92,42 +93,42 @@ position_smoothing_speed = 2.0
 
 [node name="Control" type="Control" parent="Player/Camera2D"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -384.0
-offset_top = -216.0
-offset_right = -341.0
-offset_bottom = -173.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
+anchors_preset = 0
+offset_left = 27.0
+offset_top = -1.0
+offset_right = 67.0
+offset_bottom = 39.0
+metadata/_edit_group_ = true
 
 [node name="HealthContainer1" type="ColorRect" parent="Player/Camera2D/Control"]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 43.0
-offset_bottom = 43.0
+offset_left = -408.0
+offset_top = -212.0
+offset_right = -368.0
+offset_bottom = -172.0
 color = Color(0.811063, 0, 0.142269, 1)
 
 [node name="HealthContainer2" type="ColorRect" parent="Player/Camera2D/Control"]
 layout_mode = 0
-offset_left = 49.0
-offset_top = 3.0
-offset_right = 89.0
-offset_bottom = 43.0
+offset_left = -359.0
+offset_top = -212.0
+offset_right = -319.0
+offset_bottom = -172.0
 color = Color(0.811063, 0, 0.142269, 1)
 
 [node name="HealthContainer3" type="ColorRect" parent="Player/Camera2D/Control"]
 layout_mode = 1
-offset_left = 95.0
-offset_top = 3.0
-offset_right = 135.0
-offset_bottom = 43.0
+anchors_preset = -1
+anchor_left = -0.65
+anchor_top = 0.075
+anchor_right = -0.65
+anchor_bottom = 0.075
+offset_left = -285.0
+offset_top = -215.0
+offset_right = -245.0
+offset_bottom = -175.0
 color = Color(0.811063, 0, 0.142269, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" type="Area2D" parent="Player"]
 position = Vector2(114, 95)
@@ -221,6 +222,5 @@ offset_right = 40.0
 offset_bottom = 40.0
 color = Color(1, 0.0705882, 0.905882, 1)
 
-[connection signal="child_entered_tree" from="Player/Camera2D/Control" to="Player" method="_on_control_child_entered_tree"]
 [connection signal="body_entered" from="Enemy" to="Player" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="HealthGain" to="Player" method="_on_health_gain_body_entered"]
