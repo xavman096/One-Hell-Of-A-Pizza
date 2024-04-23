@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://250kbsk835go"]
+
+[ext_resource type="Texture2D" uid="uid://dj2qugsuf0axg" path="res://Sprite-0002.png" id="1_k1gk3"]
+
+[sub_resource type="GDScript" id="GDScript_ckyav"]
+resource_name = "CharacterMoveScript"
+script/source = "extends CharacterBody2D
+
+var Speed = 400
+
+var Gravity = 980
+var JumpForce = -400
+
+export(bool) var test = false
+
+func _physics_process(delta):
+	
+	var Direction = Input.get_axis(\"Left\", \"Right\")
+	if Direction:
+		velocity.x = Direction * Speed
+	else: velocity.x = 0
+	
+	if not is_on_floor():
+		velocity.y += Gravity * delta
+	
+	if Input.is_action_just_pressed(\"Jump\") and is_on_floor():
+		velocity.y += JumpForce * delta
+		
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mpr38"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7rql"]
+size = Vector2(580, 25)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = SubResource("GDScript_ckyav")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("1_k1gk3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_mpr38")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 170)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_v7rql")

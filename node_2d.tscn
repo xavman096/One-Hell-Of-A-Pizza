@@ -6,42 +6,39 @@
 resource_name = "CharacterMoveScript"
 script/source = "extends CharacterBody2D
 
-var Speed = 400
-
-var Gravity = 980
-var JumpForce = -400
+@export var Speed = 400
+@export var Gravity = 20
+@export var JumpForce = -400
 
 func _physics_process(delta):
-	if Input.is_action_pressed(\"Left\"):
-		velocity.x = -1 * Speed
-	else: velocity.x = 0
-		
-	if Input.is_action_pressed(\"Right\"):
-		velocity.x = 1 * Speed
+	
+	var Direction = Input.get_axis(\"Left\", \"Right\")
+	if Direction:
+		velocity.x = Direction * Speed
 	else: velocity.x = 0
 	
 	if not is_on_floor():
-		velocity.y += Gravity * delta
+		velocity.y += Gravity
 	
 	if Input.is_action_just_pressed(\"Jump\") and is_on_floor():
-		velocity.y += JumpForce * delta
+		velocity.y += JumpForce
 		
 	move_and_slide()
+	
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mpr38"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7rql"]
-size = Vector2(580, 25)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbfv7"]
+size = Vector2(578, 20)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-
 [node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(5, 7)
 script = SubResource("GDScript_ckyav")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_k1gk3")
@@ -49,9 +46,117 @@ texture = ExtResource("1_k1gk3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_mpr38")
 
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_speed = 2.0
+
+[node name="Control" type="Control" parent="Player/Camera2D"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthContainer" type="ColorRect" parent="Player/Camera2D/Control"]
+layout_mode = 0
+offset_left = -380.0
+offset_top = -213.0
+offset_right = -340.0
+offset_bottom = -173.0
+color = Color(0.811063, 0, 0.142269, 1)
+
+[node name="HealthContainer2" type="ColorRect" parent="Player/Camera2D/Control"]
+layout_mode = 0
+offset_left = -336.0
+offset_top = -213.0
+offset_right = -296.0
+offset_bottom = -173.0
+color = Color(0.811063, 0, 0.142269, 1)
+
+[node name="HealthContainer3" type="ColorRect" parent="Player/Camera2D/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.175
+anchor_top = 0.05
+anchor_right = -0.175
+anchor_bottom = 0.05
+offset_left = -285.0
+offset_top = -215.0
+offset_right = -245.0
+offset_bottom = -175.0
+color = Color(0.811063, 0, 0.142269, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthContainer4" type="ColorRect" parent="Player/Camera2D/Control"]
+layout_mode = 0
+offset_left = -247.0
+offset_top = -213.0
+offset_right = -207.0
+offset_bottom = -173.0
+color = Color(0.811063, 0, 0.142269, 1)
+
+[node name="HealthContainer5" type="ColorRect" parent="Player/Camera2D/Control"]
+layout_mode = 0
+offset_left = -203.0
+offset_top = -213.0
+offset_right = -163.0
+offset_bottom = -173.0
+color = Color(0.811063, 0, 0.142269, 1)
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(-274, 177)
+z_index = -1
+position = Vector2(-1, 152)
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(276, -2.5)
-shape = SubResource("RectangleShape2D_v7rql")
+shape = SubResource("RectangleShape2D_jbfv7")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_left = -290.0
+offset_top = -10.0
+offset_right = 289.0
+offset_bottom = 11.0
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+z_index = -1
+position = Vector2(279, 10)
+rotation = 1.5708
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+shape = SubResource("RectangleShape2D_jbfv7")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D2"]
+offset_left = -290.0
+offset_top = -10.0
+offset_right = 289.0
+offset_bottom = 11.0
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+z_index = -1
+position = Vector2(-277, 5)
+rotation = 1.5708
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+shape = SubResource("RectangleShape2D_jbfv7")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D3"]
+offset_left = -290.0
+offset_top = -10.0
+offset_right = 289.0
+offset_bottom = 11.0
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+z_index = -1
+position = Vector2(9, -151)
+rotation = 3.14159
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+shape = SubResource("RectangleShape2D_jbfv7")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D4"]
+offset_left = -290.0
+offset_top = -10.0
+offset_right = 289.0
+offset_bottom = 11.0
