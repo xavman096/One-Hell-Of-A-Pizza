@@ -4,56 +4,84 @@
 
 [sub_resource type="GDScript" id="GDScript_ckyav"]
 resource_name = "CharacterMoveScript"
-script/source = "extends CharacterBody2D
+script/source = "# Just means this is a script is attatched to the node
+extends CharacterBody2D
 
+# Gets the Control Node where the HealthContainers are stored
 @onready var HealthContainerContainer = $Camera2D/Control
+# An array where all the HealthContainers are stored
 @onready var HealthContainer = [\"Random string to make array index line up with health\", $Camera2D/Control/HealthContainer1, $Camera2D/Control/HealthContainer2, $Camera2D/Control/HealthContainer3]
+# PLayers Current Health
 @export var PlayerHealth = 3
+# Just a Placeholder variable for later when making a new HealthContainer
 var HealthContainerNode = null
+# Players max health
 var MaxHealth = 10
 
+# This is pretty self expanitory
 @export var Speed = 400
 @export var Gravity = 20
 @export var JumpForce = -400
 
+# Coz the Nodes take a while to spawn in the tree just a little delay so it doesnt error
 var TreeTriggerCooldown = 3
+# The game randomly triggers the collision even when it shouldnt so this stops it
 var RandomFirstCollision = true
 
 func _physics_process(_delta):
-	
+	# Standard movement script
 	var Direction = Input.get_axis(\"Left\", \"Right\")
 	if Direction:
 		velocity.x = Direction * Speed
 	else: velocity.x = 0
 	
+	# if you dont understand this then delete godot
 	if not is_on_floor():
 		velocity.y += Gravity
 	
+	# also if you dont understand this then delete godot
 	if Input.is_action_just_pressed(\"Jump\") and is_on_floor():
 		velocity.y += JumpForce
-		
+	
+	# Makes the character move i actually have no idea what this does ik I just need to use it
 	move_and_slide()
 	
+# When a collision occurs between the player and an enemy or something that causes damage
 func _on_area_2d_body_entered(_body):
+	# That random first collision I was talking about before
 	if RandomFirstCollision == false:
+			# Deletes the HealthContainer from the Control Node
 			HealthContainerContainer.remove_child(HealthContainer[PlayerHealth])
+			# Decreases Health
 			PlayerHealth = PlayerHealth - 1
+			# Removes the HealthContainer from the array
 			HealthContainer.pop_back()
+			# Tells you if you died
 			if PlayerHealth <= 0:
 				print(\"Player Has Died!!\")
-				
+	# Same random collision bullshit thing
 	else: RandomFirstCollision = false
 
+# When Player has collision with a HealthContainer Gaining item
 func _on_health_gain_body_entered(_body):
-	PlayerHealth = PlayerHealth + 1
-	HealthContainerNode = ColorRect.new()
-	HealthContainerContainer.add_child(HealthContainerNode, true)
-	
+	if PlayerHealth < MaxHealth:
+		PlayerHealth = PlayerHealth + 1
+		# Creates a new HealthContainer Node
+		HealthContainerNode = ColorRect.new()
+		# Addes the new Node to the Control Node
+		HealthContainerContainer.add_child(HealthContainerNode, true)
+		
 	# When a new child is added to the HealthContainerContainer (control) it triggers this function
 func _on_control_child_entered_tree(node):
 	if TreeTriggerCooldown <= 0:
+		# These lines just change the properties of the HealthContiner
 		node.name = \"HealthContainer\" + str(PlayerHealth)
+		node.size.x  = 40
+		node.size.y = 40
+		node.position.x = (46 * (PlayerHealth - 1)) + 6
+		node.position.y = 6
 		node.color = Color(\"Red\")
+		# Add the HealthContainer node to the array
 		HealthContainer.append(node)
 	else:
 		TreeTriggerCooldown = TreeTriggerCooldown - 1
@@ -107,27 +135,27 @@ size_flags_horizontal = 4
 
 [node name="HealthContainer1" type="ColorRect" parent="Player/Camera2D/Control"]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 43.0
-offset_bottom = 43.0
-color = Color(0.811063, 0, 0.142269, 1)
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 46.0
+offset_bottom = 46.0
+color = Color(1, 0, 0, 1)
 
 [node name="HealthContainer2" type="ColorRect" parent="Player/Camera2D/Control"]
 layout_mode = 0
-offset_left = 49.0
-offset_top = 3.0
-offset_right = 89.0
-offset_bottom = 43.0
-color = Color(0.811063, 0, 0.142269, 1)
+offset_left = 52.0
+offset_top = 6.0
+offset_right = 92.0
+offset_bottom = 46.0
+color = Color(1, 0, 0, 1)
 
 [node name="HealthContainer3" type="ColorRect" parent="Player/Camera2D/Control"]
-layout_mode = 1
-offset_left = 95.0
-offset_top = 3.0
-offset_right = 135.0
-offset_bottom = 43.0
-color = Color(0.811063, 0, 0.142269, 1)
+layout_mode = 0
+offset_left = 98.0
+offset_top = 6.0
+offset_right = 138.0
+offset_bottom = 46.0
+color = Color(1, 0, 0, 1)
 
 [node name="Area2D" type="Area2D" parent="Player"]
 position = Vector2(114, 95)
