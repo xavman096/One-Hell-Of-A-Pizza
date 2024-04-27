@@ -58,7 +58,7 @@ func _on_area_2d_body_entered(_body):
 			HealthContainer.pop_back()
 			# Tells you if you died
 			if PlayerHealth <= 0:
-				print(\"Player Has Died!!\")
+				get_tree().change_scene_to_file(\"res://menu.tscn\")
 	# Same random collision bullshit thing
 	else: RandomFirstCollision = false
 
