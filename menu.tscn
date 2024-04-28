@@ -34,5 +34,13 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Quit"
 
+[node name="testing" type="Button" parent="."]
+offset_left = 843.0
+offset_top = 332.0
+offset_right = 1055.0
+offset_bottom = 472.0
+text = "testworld"
+
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="testing" to="." method="_on_testing_pressed"]

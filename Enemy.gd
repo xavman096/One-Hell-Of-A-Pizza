@@ -10,7 +10,7 @@ func _physics_process(delta):
 	# add chase functionality
 	velocity.y += gravity + delta
 	if chase == true:
-		player = get_node("../../Player/Player")
+		player = get_node("../playertest")
 		var direction = (player.position - self.position).normalized()
 		velocity.x = direction.x * speed
 	else:
@@ -19,11 +19,11 @@ func _physics_process(delta):
 
 func _on_player_detection_body_entered(body):
 	# chase when player is within a certain area
-	if body.name == "Player":
+	if body.name == "playertest":
 		chase = true
 
 
 func _on_player_detection_body_exited(body):
 	# stop chasing if player leaves the area
-	if body.name == "Player":
+	if body.name == "playertest":
 		chase = false

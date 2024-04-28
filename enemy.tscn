@@ -1,12 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbur7qashbloa"]
+[gd_scene load_steps=6 format=3 uid="uid://dbur7qashbloa"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_fpatw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ncfgg"]
-size = Vector2(20, 10)
+size = Vector2(18, 9)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tleov"]
-radius = 60.0083
+radius = 324.891
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vefvm"]
+size = Vector2(20, 10)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3faaf"]
 
@@ -14,25 +17,27 @@ radius = 60.0083
 script = ExtResource("1_fpatw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, -4.5)
 shape = SubResource("RectangleShape2D_ncfgg")
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+visible = false
 shape = SubResource("CircleShape2D_tleov")
 
-[node name="PlayerHurt" type="Area2D" parent="."]
+[node name="PlayerHit" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurt"]
-shape = SubResource("CircleShape2D_tleov")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHit"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_vefvm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -4)
-scale = Vector2(6.5, 6.5)
+position = Vector2(-2.38419e-07, -4.5)
+scale = Vector2(18, 9)
 texture = SubResource("PlaceholderTexture2D_3faaf")
 
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
-[connection signal="body_entered" from="PlayerHurt" to="." method="_on_player_hurt_body_entered"]
-[connection signal="body_exited" from="PlayerHurt" to="." method="_on_player_hurt_body_exited"]
+[connection signal="body_entered" from="PlayerHit" to="." method="_on_player_hurt_body_entered"]
+[connection signal="body_exited" from="PlayerHit" to="." method="_on_player_hurt_body_exited"]

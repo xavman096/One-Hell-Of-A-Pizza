@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://c058kh8cg3era"]
+
+[ext_resource type="Script" path="res://player1.gd" id="1_xh1ay"]
+
+[sub_resource type="Gradient" id="Gradient_72hdx"]
+offsets = PackedFloat32Array(0, 0.433551, 1)
+colors = PackedColorArray(0.447712, 0.330455, 0.292272, 1, 1, 0.654874, 0.605512, 1, 1, 0.388235, 0.0588235, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_apbeb"]
+gradient = SubResource("Gradient_72hdx")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_54uh7"]
+size = Vector2(93, 87)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_41j2g"]
+size = Vector2(95, 89)
+
+[node name="playertest" type="CharacterBody2D"]
+script = ExtResource("1_xh1ay")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(48, 42.5)
+scale = Vector2(0.359375, 87)
+texture = SubResource("GradientTexture1D_apbeb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(47.5, 42.5)
+shape = SubResource("RectangleShape2D_54uh7")
+
+[node name="PlayerHurt" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurt"]
+position = Vector2(47.5, 42.5)
+shape = SubResource("RectangleShape2D_41j2g")
+
+[connection signal="area_entered" from="PlayerHurt" to="." method="_on_player_hurt_area_entered"]

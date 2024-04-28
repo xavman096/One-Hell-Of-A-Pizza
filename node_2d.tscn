@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://250kbsk835go"]
+[gd_scene load_steps=8 format=3 uid="uid://250kbsk835go"]
 
 [ext_resource type="Texture2D" uid="uid://dj2qugsuf0axg" path="res://Sprite-0002.png" id="1_k1gk3"]
-[ext_resource type="PackedScene" uid="uid://dbur7qashbloa" path="res://enemy.tscn" id="2_qt2fl"]
 
 [sub_resource type="GDScript" id="GDScript_ckyav"]
 resource_name = "CharacterMoveScript"
@@ -169,9 +168,6 @@ shape = SubResource("RectangleShape2D_7ahqi")
 
 [node name="Enemies" type="Node2D" parent="."]
 position = Vector2(5, 7)
-
-[node name="Enemy2" parent="Enemies" instance=ExtResource("2_qt2fl")]
-position = Vector2(80, 117)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 z_index = -1
