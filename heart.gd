@@ -10,6 +10,7 @@ func _ready():
 func _process(delta):
 	pass
 
+# changes sprite frame to reflect health.
 func update(whole: bool):
 	if whole:
 		sprite.frame = 0

@@ -27,3 +27,9 @@ func _on_player_detection_body_exited(body):
 	# stop chasing if player leaves the area
 	if body.name == "playertest":
 		chase = false
+
+
+# enemy dies if the player hits it on top.
+func _on_enemy_hit_body_entered(body):
+	if body.name == "playertest":
+		queue_free()

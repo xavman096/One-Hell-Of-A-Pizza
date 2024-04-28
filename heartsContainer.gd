@@ -10,11 +10,13 @@ func _ready():
 func _process(delta):
 	pass
 
+# adds a heart to the container/gui for each heart.
 func setMaxHearts(max : int):
 	for i in range(max):
 		var heart = HeartGuiClass.instantiate()
 		add_child(heart)
 
+# updates hearts to be either full or empty based on current health.
 func updateHearts(currentHealth: int):
 	var hearts = get_children()
 	
