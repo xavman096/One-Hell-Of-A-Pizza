@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbv8jqrhxu7d2"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_d4gd0"]
+
+[node name="menu" type="Node2D"]
+script = ExtResource("1_d4gd0")
+
+[node name="start" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 363.0
+offset_top = 227.0
+offset_right = 737.0
+offset_bottom = 394.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 0
+text = "Start"
+
+[node name="quit" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 361.0
+offset_top = 443.0
+offset_right = 735.0
+offset_bottom = 610.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+
+[node name="testing" type="Button" parent="."]
+offset_left = 843.0
+offset_top = 332.0
+offset_right = 1055.0
+offset_bottom = 472.0
+text = "testworld"
+
+[connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="testing" to="." method="_on_testing_pressed"]

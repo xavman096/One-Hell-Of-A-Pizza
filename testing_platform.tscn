@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://bovrb4riux8gl"]
+
+[ext_resource type="Script" path="res://testing_platform.gd" id="1_lcty4"]
+[ext_resource type="PackedScene" uid="uid://dbur7qashbloa" path="res://enemy.tscn" id="1_w1ui8"]
+[ext_resource type="PackedScene" uid="uid://c058kh8cg3era" path="res://player1.tscn" id="2_28ltj"]
+[ext_resource type="PackedScene" uid="uid://np6bar31ttaq" path="res://heartsContainer.tscn" id="4_xbtlv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_of710"]
+size = Vector2(1151, 199)
+
+[node name="testing platform" type="Node2D"]
+script = ExtResource("1_lcty4")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+z_index = -1
+position = Vector2(289, 460)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(286.5, 89.5)
+shape = SubResource("RectangleShape2D_of710")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_left = -290.0
+offset_top = -10.0
+offset_right = 861.0
+offset_bottom = 194.0
+
+[node name="Enemy" parent="." instance=ExtResource("1_w1ui8")]
+position = Vector2(842, 363)
+
+[node name="Enemy2" parent="." instance=ExtResource("1_w1ui8")]
+position = Vector2(557, 360)
+
+[node name="playertest" parent="." instance=ExtResource("2_28ltj")]
+position = Vector2(93, 186)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="heartsContainer" parent="CanvasLayer" instance=ExtResource("4_xbtlv")]
