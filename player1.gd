@@ -31,12 +31,17 @@ func _physics_process(delta):
 	move_and_slide()
 
 
+# function to call to gain health.
+func gainHealth(healthBoost):
+	currentHealth += healthBoost
+	healthChanged.emit(currentHealth)
 
-
-
+# changes health if player is hit, returning to menu once zero.
 func _on_player_hurt_area_entered(area):
 	if area.name == "PlayerHit":
 		currentHealth -= 1
 		if currentHealth <= 0:
 			get_tree().change_scene_to_file("res://menu.tscn")
 		healthChanged.emit(currentHealth)
+	if area.has_method("collect"):
+		area.collect(self)

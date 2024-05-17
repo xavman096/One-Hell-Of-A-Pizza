@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://c35n5vr7blvvr"]
+
+[ext_resource type="PackedScene" uid="uid://c2vcv0cb8rbvd" path="res://collectable.tscn" id="1_rexhy"]
+[ext_resource type="Script" path="res://mushroom.gd" id="2_dlxm4"]
+[ext_resource type="Texture2D" uid="uid://bxtgb4wqqdo4j" path="res://textures/mushroomRed.png" id="2_qbtgc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_keu85"]
+resource_local_to_scene = true
+size = Vector2(14, 10)
+
+[node name="collectable" instance=ExtResource("1_rexhy")]
+script = ExtResource("2_dlxm4")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_keu85")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(3.8147e-06, -6)
+texture = ExtResource("2_qbtgc")
