@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://bovrb4riux8gl"]
+[gd_scene load_steps=9 format=3 uid="uid://bovrb4riux8gl"]
 
 [ext_resource type="Script" path="res://testing_platform.gd" id="1_lcty4"]
 [ext_resource type="PackedScene" uid="uid://dbur7qashbloa" path="res://enemy.tscn" id="1_w1ui8"]
 [ext_resource type="PackedScene" uid="uid://c058kh8cg3era" path="res://player1.tscn" id="2_28ltj"]
 [ext_resource type="PackedScene" uid="uid://np6bar31ttaq" path="res://heartsContainer.tscn" id="4_xbtlv"]
 [ext_resource type="PackedScene" uid="uid://c35n5vr7blvvr" path="res://mushroom.tscn" id="5_d5f3m"]
+[ext_resource type="PackedScene" uid="uid://cyuyayhfkqsdn" path="res://coin.tscn" id="6_1hvy6"]
+[ext_resource type="Script" path="res://coins.gd" id="7_e48uq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_of710"]
 size = Vector2(1151, 199)
@@ -45,3 +47,13 @@ position = Vector2(444, 445)
 
 [node name="collectable2" parent="." instance=ExtResource("5_d5f3m")]
 position = Vector2(1043, 445)
+
+[node name="collectable3" parent="." instance=ExtResource("6_1hvy6")]
+position = Vector2(316, 381)
+
+[node name="coins" type="Label" parent="."]
+offset_left = 542.0
+offset_top = 140.0
+offset_right = 615.0
+offset_bottom = 163.0
+script = ExtResource("7_e48uq")

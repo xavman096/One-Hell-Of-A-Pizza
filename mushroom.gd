@@ -4,5 +4,6 @@ extends "res://collectable.gd"
 
 # gains health for the player when mushroom is collected.
 func collect(player: Node):
-	player.gainHealth(healthBoost)
+	if player.currentHealth < player.maxHealth:
+		player.gainHealth(healthBoost)
 	super(player)
