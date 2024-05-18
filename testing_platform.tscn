@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bovrb4riux8gl"]
+[gd_scene load_steps=10 format=3 uid="uid://bovrb4riux8gl"]
 
 [ext_resource type="Script" path="res://testing_platform.gd" id="1_lcty4"]
 [ext_resource type="PackedScene" uid="uid://dbur7qashbloa" path="res://enemy.tscn" id="1_w1ui8"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c35n5vr7blvvr" path="res://collectables/mushroom.tscn" id="5_d5f3m"]
 [ext_resource type="PackedScene" uid="uid://cyuyayhfkqsdn" path="res://collectables/coin.tscn" id="6_1hvy6"]
 [ext_resource type="Script" path="res://coins.gd" id="7_e48uq"]
+[ext_resource type="PackedScene" uid="uid://btg4wjsuo8iyv" path="res://collectables/snowball.tscn" id="8_xdsjk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_of710"]
 size = Vector2(1151, 199)
@@ -57,3 +58,6 @@ offset_top = 140.0
 offset_right = 615.0
 offset_bottom = 163.0
 script = ExtResource("7_e48uq")
+
+[node name="collectable4" parent="." instance=ExtResource("8_xdsjk")]
+position = Vector2(720, 379)

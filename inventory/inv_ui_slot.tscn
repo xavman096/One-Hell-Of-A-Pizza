@@ -24,3 +24,8 @@ offset_bottom = 16.0
 layout_mode = 2
 
 [node name="current_item" type="Sprite2D" parent="CenterContainer/Panel"]
+
+[node name="Label" type="Label" parent="CenterContainer/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

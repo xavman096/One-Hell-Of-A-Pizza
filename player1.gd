@@ -38,6 +38,7 @@ func gainHealth(healthBoost):
 	healthChanged.emit(currentHealth)
 
 # changes health if player is hit, returning to menu once zero.
+# collection of items.
 func _on_player_hurt_area_entered(area):
 	if area.name == "PlayerHit":
 		currentHealth -= 1
@@ -46,3 +47,7 @@ func _on_player_hurt_area_entered(area):
 		healthChanged.emit(currentHealth)
 	if area.has_method("collect"):
 		area.collect(self)
+
+
+func pickup(item):
+	inv.insert(item)
