@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dbur7qashbloa" path="res://enemy.tscn" id="1_w1ui8"]
 [ext_resource type="PackedScene" uid="uid://c058kh8cg3era" path="res://player1.tscn" id="2_28ltj"]
 [ext_resource type="PackedScene" uid="uid://np6bar31ttaq" path="res://heartsContainer.tscn" id="4_xbtlv"]
-[ext_resource type="PackedScene" uid="uid://c35n5vr7blvvr" path="res://mushroom.tscn" id="5_d5f3m"]
-[ext_resource type="PackedScene" uid="uid://cyuyayhfkqsdn" path="res://coin.tscn" id="6_1hvy6"]
+[ext_resource type="PackedScene" uid="uid://c35n5vr7blvvr" path="res://collectables/mushroom.tscn" id="5_d5f3m"]
+[ext_resource type="PackedScene" uid="uid://cyuyayhfkqsdn" path="res://collectables/coin.tscn" id="6_1hvy6"]
 [ext_resource type="Script" path="res://coins.gd" id="7_e48uq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_of710"]

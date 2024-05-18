@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cyuyayhfkqsdn"]
 
-[ext_resource type="PackedScene" uid="uid://c2vcv0cb8rbvd" path="res://collectable.tscn" id="1_toxjj"]
-[ext_resource type="Script" path="res://coin.gd" id="2_ivj7n"]
+[ext_resource type="PackedScene" uid="uid://c2vcv0cb8rbvd" path="res://collectables/collectable.tscn" id="1_toxjj"]
+[ext_resource type="Script" path="res://collectables/coin.gd" id="2_ivj7n"]
 [ext_resource type="Texture2D" uid="uid://j23wh2j382em" path="res://textures/coinGold.png" id="2_rqy6d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g7kjh"]

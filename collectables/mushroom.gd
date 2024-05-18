@@ -1,4 +1,4 @@
-extends "res://collectable.gd"
+extends "res://collectables/collectable.gd"
 
 @export var healthBoost: int = 1
 

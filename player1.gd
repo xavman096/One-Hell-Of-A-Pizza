@@ -7,6 +7,7 @@ const JUMP_VELOCITY = -400.0
 
 @export var maxHealth = 5
 @onready var currentHealth: int = maxHealth
+@export var inv: Inv
 
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
