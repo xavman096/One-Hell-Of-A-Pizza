@@ -8,10 +8,12 @@ var is_open = false
 
 
 func _ready():
+	# updates slots when update is emitted.
 	inv.update.connect(update_slots)
 	update_slots()
 	close()
 
+# checks and updates all slots.
 func update_slots():
 	for i in range(min(inv.slots.size(), slots.size())):
 		slots[i].update(inv.slots[i])

@@ -48,6 +48,6 @@ func _on_player_hurt_area_entered(area):
 	if area.has_method("collect"):
 		area.collect(self)
 
-
+# adds item that is picked up.
 func pickup(item):
 	inv.insert(item)
